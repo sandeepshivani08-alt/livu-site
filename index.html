@@ -1,0 +1,2013 @@
+<!DOCTYPE html> 
+
+<html lang="en"> 
+
+<head> 
+
+<meta charset="UTF-8"> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+<title>LIV.U — Cardiovascular & Genetic Intelligence for Human Performance</title> 
+
+<meta name="description" content="Cardiovascular and genetic intelligence for human performance. A continuous system that maps how every athlete responds to training, stress, and recovery — individually and precisely."> 
+
+<meta property="og:title" content="LIV.U — Cardiovascular Intelligence Platform"> 
+
+<meta property="og:description" content="For soccer, basketball, baseball, football, and lacrosse. Tuned by genetics, driven by continuous data."> 
+
+<meta property="og:type" content="website"> 
+
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"> 
+
+<style> 
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; } 
+
+html { scroll-behavior:smooth; } 
+
+::selection { background:rgba(41,121,255,0.30); color:#F4F6FA; } 
+
+::-moz-selection { background:rgba(41,121,255,0.30); color:#F4F6FA; } 
+
+:root { 
+
+  --bg:#0A0F1F; --elev:rgba(33,43,73,0.15); --elev2:rgba(40,51,87,0.14); 
+
+  --text:#E3E9F3; --dim:rgba(227,233,243,0.62); --faint:rgba(227,233,243,0.38); 
+
+  --ghost:rgba(227,233,243,0.16); --border:rgba(227,233,243,0.10); --borderStr:rgba(227,233,243,0.16); 
+
+  --green:#00E676; --blue:#2979FF; --pink:#D500F9; 
+
+  --mono:'JetBrains Mono',monospace; --display:'Inter',-apple-system,system-ui,sans-serif; 
+
+} 
+
+html,body { background:var(--bg); } 
+
+body { color:var(--text); font-family:var(--display); -webkit-font-smoothing:antialiased; overflow-x:hidden; position:relative; } 
+
+body::before { content:""; position:fixed; inset:0; z-index:-2; 
+
+  background:linear-gradient(180deg,#0A0F1F 0%,#0E142B 18%,#131A38 38%,#1A2247 58%,#232C55 78%,#2D3863 100%); pointer-events:none; } 
+
+body::after { content:""; position:fixed; inset:0; z-index:-1; 
+
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(41,121,255,0.08) 0%,transparent 50%),radial-gradient(ellipse 100% 60% at 50% 100%,rgba(41,121,255,0.05) 0%,transparent 60%); pointer-events:none; } 
+
+a { text-decoration:none; color:inherit; } 
+
+.grain { position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:0.04; mix-blend-mode:overlay; 
+
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); } 
+
+.mono { font-family:var(--mono); } 
+
+.eyebrow { font-family:var(--mono); font-size:10px; letter-spacing:0.32em; color:var(--faint); text-transform:uppercase; margin-bottom:14px; } 
+
+.eyebrow.blue { color:var(--blue); } 
+
+.eyebrow.green { color:var(--green); } 
+
+.container { max-width:1200px; margin:0 auto; padding:0 40px; } 
+
+.narrow { max-width:780px; margin:0 auto; padding:0 40px; } 
+
+.fade-up { opacity:0; transform:translateY(28px); transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1); } 
+
+.fade-up.visible { opacity:1; transform:translateY(0); } 
+
+.d1 { transition-delay:0.08s; } .d2 { transition-delay:0.16s; } .d3 { transition-delay:0.24s; } .d4 { transition-delay:0.32s; } .d5 { transition-delay:0.40s; } 
+
+.btn { display:inline-flex; align-items:center; font-family:var(--mono); font-size:11px; letter-spacing:0.22em; padding:14px 32px; border-radius:12px; border:none; cursor:pointer; transition:opacity 0.2s,transform 0.15s; white-space:nowrap; } 
+
+.btn:hover { opacity:0.85; transform:translateY(-1px); } 
+
+.btn-primary { background:var(--blue); color:var(--bg); box-shadow:inset 0 1px 0 rgba(255,255,255,0.22), 0 8px 24px -8px rgba(41,121,255,0.5); } 
+
+.btn-ghost { background:var(--elev); color:var(--dim); border:1px solid var(--border); box-shadow:inset 0 1px 0 rgba(255,255,255,0.04); } 
+
+.btn-group { display:flex; gap:12px; flex-wrap:wrap; } 
+
+ 
+
+/* NAV */ 
+
+#nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:18px 24px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; transition:background 0.4s,backdrop-filter 0.4s; } 
+
+#nav.scrolled { background:rgba(10,15,31,0.88); backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%); border-bottom:1px solid var(--border); } 
+
+.nav-logo { grid-column:2; justify-self:center; font-family:var(--display); font-weight:500; font-size:20px; letter-spacing:0.18em; color:var(--text); display:inline-flex; align-items:flex-start; } 
+
+.nav-logo .reg { font-size:9px; letter-spacing:0; margin-left:2px; margin-top:3px; color:var(--faint); } 
+
+.nav-spacer { grid-column:1; } 
+
+.nav-menu-btn { grid-column:3; justify-self:end; background:none; border:none; cursor:pointer; display:flex; flex-direction:column; gap:5px; padding:6px; } 
+
+.nav-menu-btn span { display:block; width:24px; height:1.5px; background:var(--text); transition:transform 0.3s,opacity 0.3s; } 
+
+ 
+
+/* Full-screen overlay menu */ 
+
+.nav-overlay { position:fixed; inset:0; z-index:150; background:var(--bg); transform:translateY(-100%); transition:transform 0.5s cubic-bezier(0.16,1,0.3,1); visibility:hidden; display:flex; flex-direction:column; } 
+
+.nav-overlay.open { transform:translateY(0); visibility:visible; } 
+
+.nav-overlay-top { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:18px 24px; border-bottom:1px solid var(--border); } 
+
+.nav-overlay-top .nav-logo { grid-column:2; } 
+
+.nav-overlay-close { grid-column:3; justify-self:end; background:none; border:none; cursor:pointer; color:var(--text); font-size:30px; line-height:1; font-weight:200; padding:4px 8px; } 
+
+.nav-overlay-links { flex:1; overflow-y:auto; padding:8px 0 24px; } 
+
+.nav-overlay-links a { display:flex; align-items:center; justify-content:space-between; padding:26px 32px; font-family:var(--display); font-size:30px; font-weight:400; letter-spacing:-0.02em; color:var(--text); border-bottom:1px solid var(--border); transition:padding-left 0.3s,color 0.3s; } 
+
+.nav-overlay-links a:hover { padding-left:40px; color:var(--blue); } 
+
+.nav-overlay-links a .arrow { font-size:20px; color:var(--faint); font-weight:300; } 
+
+.nav-overlay-cta { padding:24px 32px 40px; } 
+
+.nav-overlay-cta a { display:flex; align-items:center; justify-content:center; width:100%; background:var(--blue); color:var(--bg); font-family:var(--mono); font-size:12px; letter-spacing:0.22em; padding:18px; border-radius:12px; box-shadow:inset 0 1px 0 rgba(255,255,255,0.2), 0 8px 24px -8px rgba(41,121,255,0.5); } 
+
+body.menu-open { overflow:hidden; } 
+
+ 
+
+/* HERO */ 
+
+#hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:120px 40px 80px; text-align:center; position:relative; overflow:hidden; } 
+
+.hero-content { position:relative; z-index:3; max-width:820px; } 
+
+.hero-h1 { font-family:var(--display); font-size:clamp(40px,6vw,72px); font-weight:300; letter-spacing:-0.04em; line-height:1.05; color:var(--text); margin-bottom:24px; } 
+
+.hero-h1 .accent { 
+
+  background: linear-gradient(110deg, #2979FF 0%, #5FA8FF 25%, #2979FF 50%, #5FA8FF 75%, #2979FF 100%); 
+
+  background-size: 300% 100%; 
+
+  -webkit-background-clip: text; background-clip: text; 
+
+  -webkit-text-fill-color: transparent; color: transparent; 
+
+  animation: accent-shift 14s ease-in-out infinite; 
+
+} 
+
+@keyframes accent-shift { 
+
+  0%, 100% { background-position: 0% 50%; } 
+
+  50%      { background-position: 100% 50%; } 
+
+} 
+
+@media (prefers-reduced-motion: reduce) { 
+
+  .hero-h1 .accent { animation: none; } 
+
+} 
+
+.hero-sub { font-size:18px; font-weight:300; line-height:1.7; color:var(--dim); max-width:560px; margin:0 auto 22px; } 
+
+.sport-line { display:flex; align-items:center; justify-content:center; gap:0; flex-wrap:wrap; margin-bottom:36px; font-family:var(--mono); font-size:10px; letter-spacing:0.2em; color:var(--faint); text-transform:uppercase; } 
+
+.sport-line span { padding:0 14px; } 
+
+.sport-line .dot { width:3px; height:3px; border-radius:50%; background:var(--ghost); padding:0; } 
+
+.trust-line { margin-top:28px; display:flex; align-items:center; justify-content:center; gap:10px; font-family:var(--mono); font-size:10px; letter-spacing:0.2em; color:var(--faint); flex-wrap:wrap; } 
+
+.trust-dot { width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); flex-shrink:0; } 
+
+ 
+
+/* Sticky faint LIV.U crest watermark — fixed, sits behind all content */ 
+
+.crest-watermark { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:min(70vw,560px); color:#E3E9F3; opacity:0.035; z-index:0; pointer-events:none; user-select:none; } 
+
+.crest-glow { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:min(80vw,640px); height:min(80vw,640px); border-radius:50%; z-index:0; pointer-events:none; 
+
+  background:radial-gradient(circle, rgba(41,121,255,0.07) 0%, rgba(41,121,255,0.03) 35%, rgba(10,15,31,0) 70%); 
+
+  animation:crest-pulse 12s ease-in-out infinite; } 
+
+@keyframes crest-pulse { 0%,100%{opacity:0.7;transform:translate(-50%,-50%) scale(1);} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.06);} } 
+
+@media (prefers-reduced-motion: reduce){ .crest-glow { animation:none; } } 
+
+.crest-watermark svg { width:100%; height:auto; display:block; } 
+
+ 
+
+/* sport-lead chip */ 
+
+.sport-lead { color:var(--green) !important; font-weight:600; letter-spacing:0.24em; } 
+
+ 
+
+/* SCORE CARDS */ 
+
+.score-cards { margin-top:64px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:660px; width:100%; position:relative; z-index:3; } 
+
+.score-card { background:linear-gradient(180deg, rgba(160,178,210,0.10) 0%, rgba(160,178,210,0.02) 45%, rgba(160,178,210,0) 70%), var(--elev); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid var(--border); border-radius:20px; padding:22px 16px; display:flex; flex-direction:column; align-items:center; gap:10px; box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 2px rgba(0,0,0,0.25), 0 16px 40px -16px rgba(0,0,0,0.5); } 
+
+.score-card .status-label { font-family:var(--mono); font-size:9px; letter-spacing:0.26em; } 
+
+.score-card .verb { font-family:var(--display); font-size:18px; font-weight:600; } 
+
+.score-card .athlete-name { font-family:var(--mono); font-size:8px; letter-spacing:0.16em; color:var(--faint); text-align:center; } 
+
+.score-arc { position:relative; display:flex; align-items:center; justify-content:center; } 
+
+.score-arc svg { transform:rotate(-90deg); position:absolute; inset:0; } 
+
+.score-arc .score-num { font-family:var(--display); font-weight:300; letter-spacing:-0.04em; position:relative; z-index:1; } 
+
+ 
+
+/* PROOF BAR */ 
+
+#proof { position:relative; z-index:1; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:20px 40px; } 
+
+.proof-inner { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; } 
+
+.proof-item { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; color:var(--dim); padding:6px 0; } 
+
+.proof-sep { width:3px; height:3px; border-radius:50%; background:var(--ghost); margin:0 24px; } 
+
+ 
+
+/* SECTIONS */ 
+
+.section { position:relative; z-index:1; padding:130px 0; border-top:1px solid var(--border); } 
+
+.section h2 { font-family:var(--display); font-size:clamp(32px,4.6vw,58px); font-weight:300; letter-spacing:-0.035em; color:var(--text); max-width:620px; line-height:1.1; } 
+
+.section-header { margin-bottom:72px; } 
+
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; } 
+
+.grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; } 
+
+.card { background:linear-gradient(180deg, rgba(160,178,210,0.10) 0%, rgba(160,178,210,0.02) 45%, rgba(160,178,210,0) 70%), var(--elev); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:24px; padding:32px 28px; box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 2px rgba(0,0,0,0.25), 0 16px 40px -16px rgba(0,0,0,0.5); transition:transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.5s ease; } 
+
+.card:hover { transform:translateY(-4px); border-color:var(--borderStr); box-shadow:inset 0 1px 0 rgba(255,255,255,0.07), 0 1px 2px rgba(0,0,0,0.25), 0 28px 60px -20px rgba(0,0,0,0.6); } 
+
+.card h3 { font-family:var(--display); font-size:20px; font-weight:400; letter-spacing:-0.02em; line-height:1.3; color:var(--text); margin-bottom:12px; } 
+
+.card p { font-size:14px; line-height:1.75; color:var(--dim); margin-bottom:20px; } 
+
+.role-tag { font-family:var(--mono); font-size:9px; letter-spacing:0.3em; margin-bottom:20px; } 
+
+.stat-block { background:var(--elev2); border-radius:14px; border:1px solid var(--border); overflow:hidden; } 
+
+.stat-row { display:flex; justify-content:space-between; align-items:center; padding:11px 16px; border-bottom:1px solid var(--border); } 
+
+.stat-row:last-child { border-bottom:none; } 
+
+.stat-k { font-size:13px; color:var(--dim); } 
+
+.stat-v { font-family:var(--display); font-size:15px; font-weight:500; letter-spacing:-0.02em; } 
+
+ 
+
+/* OS cards */ 
+
+.os-icon { width:42px; height:42px; border-radius:12px; background:var(--elev2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:10px; letter-spacing:0.22em; color:var(--blue); margin-bottom:24px; } 
+
+ 
+
+/* READINESS MAP */ 
+
+.map-card { background:linear-gradient(180deg, rgba(160,178,210,0.10) 0%, rgba(160,178,210,0.02) 45%, rgba(160,178,210,0) 70%), var(--elev); border:1px solid var(--border); border-radius:24px; padding:36px 32px; max-width:760px; box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 2px rgba(0,0,0,0.25), 0 16px 40px -16px rgba(0,0,0,0.5); } 
+
+.map-row { display:grid; grid-template-columns:160px 1fr 52px; gap:20px; align-items:center; margin-bottom:26px; } 
+
+.map-row:last-child { margin-bottom:0; } 
+
+.map-label { font-size:14px; color:var(--text); } 
+
+.bar { height:6px; background:var(--elev2); border-radius:999px; overflow:hidden; } 
+
+.fill { height:100%; border-radius:999px; width:0; transition:width 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s; } 
+
+.fill.g { background:var(--green); box-shadow:0 0 8px rgba(0,230,118,0.4); } 
+
+.fill.b { background:var(--blue); box-shadow:0 0 8px rgba(41,121,255,0.4); } 
+
+.fill.p { background:var(--pink); box-shadow:0 0 8px rgba(213,0,249,0.4); } 
+
+.map-score { font-family:var(--mono); font-size:15px; letter-spacing:0.1em; text-align:right; } 
+
+ 
+
+/* HOW chips */ 
+
+.chips { display:flex; flex-wrap:wrap; gap:8px; } 
+
+.chip { font-family:var(--mono); font-size:9px; letter-spacing:0.18em; padding:5px 10px; border-radius:6px; background:var(--elev2); border:1px solid var(--border); color:var(--dim); } 
+
+.how-head { display:flex; align-items:center; gap:14px; margin-bottom:20px; } 
+
+.how-n { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; color:var(--faint); } 
+
+.how-label { font-family:var(--mono); font-size:9px; letter-spacing:0.3em; } 
+
+ 
+
+/* WHY US section */ 
+
+#whyus { position:relative; z-index:1; padding:130px 0; border-top:1px solid var(--border); } 
+
+.cardio-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; } 
+
+.cardio-left h2 { font-family:var(--display); font-size:clamp(26px,3.5vw,44px); font-weight:300; letter-spacing:-0.03em; line-height:1.15; margin-bottom:20px; } 
+
+.cardio-left p { font-size:16px; line-height:1.8; color:var(--dim); margin-bottom:18px; } 
+
+.cardio-emphasis { font-family:var(--display); font-size:19px; font-weight:400; line-height:1.45; letter-spacing:-0.015em; color:var(--text); margin-top:24px; margin-bottom:0; } 
+
+.cardio-card { background:linear-gradient(180deg, rgba(160,178,210,0.10) 0%, rgba(160,178,210,0.02) 45%, rgba(160,178,210,0) 70%), var(--elev); border:1px solid var(--borderStr); border-radius:24px; padding:36px 32px; position:relative; overflow:hidden; box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 2px rgba(0,0,0,0.25), 0 16px 40px -16px rgba(0,0,0,0.5); } 
+
+.cardio-card::before { content:""; position:absolute; top:-30%; right:-20%; width:240px; height:240px; background:radial-gradient(circle,rgba(41,121,255,0.10) 0%,transparent 70%); } 
+
+.cardio-quote { font-family:var(--display); font-size:18px; font-weight:300; line-height:1.55; letter-spacing:-0.01em; color:var(--text); font-style:italic; margin-bottom:16px; position:relative; z-index:1; } 
+
+.cardio-attr { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; color:var(--blue); position:relative; z-index:1; } 
+
+ 
+
+/* ROADMAP */ 
+
+.roadmap { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; } 
+
+.road-card { background:linear-gradient(180deg, rgba(160,178,210,0.10) 0%, rgba(160,178,210,0.02) 45%, rgba(160,178,210,0) 70%), var(--elev); border:1px solid var(--border); border-radius:24px; padding:32px 28px; position:relative; box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 2px rgba(0,0,0,0.25), 0 16px 40px -16px rgba(0,0,0,0.5); } 
+
+.road-phase { font-family:var(--mono); font-size:9px; letter-spacing:0.26em; color:var(--blue); margin-bottom:16px; } 
+
+.road-card h3 { font-family:var(--display); font-size:19px; font-weight:400; letter-spacing:-0.02em; color:var(--text); margin-bottom:12px; } 
+
+.road-card p { font-size:14px; line-height:1.7; color:var(--dim); } 
+
+.road-card .road-tag { display:inline-block; margin-top:16px; font-family:var(--mono); font-size:9px; letter-spacing:0.18em; padding:5px 10px; border-radius:6px; border:1px solid var(--border); color:var(--faint); } 
+
+ 
+
+/* CTA */ 
+
+#cta { position:relative; z-index:1; padding:150px 0; border-top:1px solid var(--border); text-align:center; } 
+
+#cta h2 { font-family:var(--display); font-size:clamp(32px,5vw,56px); font-weight:300; letter-spacing:-0.04em; color:var(--text); line-height:1.1; margin-bottom:20px; } 
+
+#cta p { font-size:17px; line-height:1.75; color:var(--dim); max-width:520px; margin:0 auto 40px; } 
+
+.cta-stats { margin-top:60px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:760px; margin-left:auto; margin-right:auto; text-align:left; } 
+
+.cta-stat { background:var(--elev); border:1px solid var(--border); border-radius:20px; padding:26px 22px; } 
+
+.cta-stat .big-num { font-family:var(--display); font-size:40px; font-weight:300; letter-spacing:-0.04em; color:var(--blue); } 
+
+.cta-stat .unit { font-family:var(--mono); font-size:9px; letter-spacing:0.22em; color:var(--faint); margin-top:4px; } 
+
+.cta-stat .desc { font-size:13px; color:var(--dim); margin-top:8px; } 
+
+ 
+
+/* SILENT INTELLIGENCE */ 
+
+.si-flow { display:grid; grid-template-columns:1fr auto 1fr; gap:28px; align-items:center; max-width:880px; margin:0 auto; } 
+
+.si-inputs { display:flex; flex-direction:column; gap:14px; } 
+
+.si-input { background:linear-gradient(180deg, rgba(160,178,210,0.10) 0%, rgba(160,178,210,0.02) 45%, rgba(160,178,210,0) 70%), var(--elev); border:1px solid var(--border); border-radius:18px; padding:18px 20px; box-shadow:inset 0 1px 0 rgba(255,255,255,0.05); } 
+
+.si-input .si-k { font-family:var(--mono); font-size:9px; letter-spacing:0.24em; text-transform:uppercase; color:var(--blue); margin-bottom:6px; } 
+
+.si-input .si-v { font-family:var(--display); font-size:16px; font-weight:400; color:var(--text); } 
+
+.si-input .si-d { font-size:13px; color:var(--dim); line-height:1.5; margin-top:4px; } 
+
+.si-arrow { font-family:var(--mono); color:var(--faint); font-size:22px; text-align:center; } 
+
+.si-output { background:linear-gradient(180deg, rgba(41,121,255,0.12) 0%, rgba(41,121,255,0.03) 100%); border:1px solid rgba(41,121,255,0.22); border-radius:20px; padding:28px 24px; text-align:center; box-shadow:inset 0 1px 0 rgba(255,255,255,0.08), 0 16px 40px -16px rgba(41,121,255,0.4); } 
+
+.si-output .si-ok { font-family:var(--mono); font-size:9px; letter-spacing:0.24em; text-transform:uppercase; color:var(--blue); margin-bottom:12px; } 
+
+.si-output .si-ov { font-family:var(--display); font-size:28px; font-weight:300; color:var(--text); } 
+
+.si-output .si-od { font-size:13px; color:var(--dim); line-height:1.55; margin-top:10px; } 
+
+.si-note { font-family:var(--mono); font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--faint); text-align:center; margin-top:32px; } 
+
+@media(max-width:680px){ .si-flow { grid-template-columns:1fr; gap:16px; } .si-arrow { transform:rotate(90deg); } } 
+
+ 
+
+/* FOUNDER NOTE */ 
+
+.founder-eyebrow { font-family:var(--mono); font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--blue); margin-bottom:22px; } 
+
+ 
+
+/* HEAD-TO-HEAD COMPARISON */ 
+
+.cmp-scenario { max-width:720px; margin:0 auto 44px; text-align:center; padding:24px 28px; border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg, rgba(160,178,210,0.06) 0%, rgba(160,178,210,0) 60%), var(--elev); } 
+
+.cmp-scenario .cmp-sc-label { font-family:var(--mono); font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color:var(--blue); margin-bottom:12px; } 
+
+.cmp-scenario p { font-family:var(--display); font-size:18px; font-weight:300; line-height:1.5; color:var(--text-soft); letter-spacing:-0.01em; } 
+
+.cmp-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:880px; margin:0 auto; } 
+
+.cmp-col { border-radius:24px; padding:32px 28px; border:1px solid var(--border); } 
+
+.cmp-col.win { background:linear-gradient(180deg, rgba(41,121,255,0.10) 0%, rgba(41,121,255,0.02) 100%), var(--elev); border-color:rgba(41,121,255,0.28); box-shadow:inset 0 1px 0 rgba(255,255,255,0.07), 0 20px 50px -22px rgba(41,121,255,0.4); } 
+
+.cmp-col.flat { background:rgba(20,27,51,0.35); opacity:0.82; } 
+
+.cmp-athlete { font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:6px; } 
+
+.cmp-col.win .cmp-athlete { color:var(--blue); } 
+
+.cmp-col.flat .cmp-athlete { color:var(--faint); } 
+
+.cmp-name { font-family:var(--display); font-size:24px; font-weight:400; letter-spacing:-0.02em; color:var(--text); margin-bottom:22px; } 
+
+.cmp-row { padding:14px 0; border-top:1px solid var(--border); } 
+
+.cmp-row:first-of-type { border-top:none; } 
+
+.cmp-k { font-family:var(--mono); font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--faint); margin-bottom:5px; } 
+
+.cmp-v { font-size:14px; line-height:1.55; color:var(--text-soft); } 
+
+.cmp-col.flat .cmp-v { color:var(--dim); } 
+
+.cmp-v.muted { color:var(--faint); font-style:italic; } 
+
+.cmp-takeaway { max-width:720px; margin:40px auto 0; text-align:center; font-family:var(--display); font-size:21px; font-weight:300; line-height:1.45; letter-spacing:-0.015em; color:var(--text); } 
+
+.cmp-takeaway strong { color:var(--blue); font-weight:400; } 
+
+@media(max-width:680px){ .cmp-grid { grid-template-columns:1fr; } } 
+
+ 
+
+/* INTERACTIVE LIVˢ DEMO — color + state, no number */ 
+
+.demo-wrap { max-width:520px; margin:0 auto; } 
+
+.demo-orb-wrap { position:relative; width:240px; height:240px; margin:0 auto 36px; display:flex; align-items:center; justify-content:center; } 
+
+.demo-halo { position:absolute; inset:-40px; border-radius:50%; background:radial-gradient(circle, var(--demo-glow) 0%, transparent 70%); transition:background 0.8s ease; animation:demo-breathe 10s ease-in-out infinite; } 
+
+.demo-ring { position:absolute; inset:20px; border-radius:50%; border:1px solid rgba(244,246,250,0.12); animation:demo-breathe 10s ease-in-out infinite; } 
+
+.demo-orb { position:relative; width:180px; height:180px; border-radius:50%; background:var(--demo-orb); transition:background 0.8s ease; display:flex; flex-direction:column; align-items:center; justify-content:center; animation:demo-breathe-core 10s ease-in-out infinite; } 
+
+.demo-state-word { font-family:var(--display); font-size:30px; font-weight:300; letter-spacing:-0.02em; color:var(--demo-color); transition:color 0.6s ease; } 
+
+@keyframes demo-breathe { 0%,100%{transform:scale(1);opacity:0.7;} 50%{transform:scale(1.06);opacity:1;} } 
+
+@keyframes demo-breathe-core { 0%,100%{transform:scale(1);} 50%{transform:scale(1.03);} } 
+
+@media (prefers-reduced-motion: reduce){ .demo-halo,.demo-ring,.demo-orb{animation:none;} } 
+
+.demo-line { font-family:var(--display); font-size:24px; font-weight:300; letter-spacing:-0.02em; line-height:1.3; color:var(--text); text-align:center; max-width:380px; margin:0 auto 14px; min-height:64px; transition:opacity 0.4s ease; } 
+
+.demo-why { font-family:var(--sans); font-size:14px; line-height:1.6; color:var(--dim); text-align:center; max-width:400px; margin:0 auto 36px; transition:opacity 0.4s ease; } 
+
+.demo-toggle-row { display:flex; gap:10px; justify-content:center; } 
+
+.demo-toggle-btn { font-family:var(--mono); font-size:11px; letter-spacing:0.12em; padding:12px 22px; border-radius:999px; border:1px solid var(--border); background:var(--elev); color:var(--dim); cursor:pointer; transition:all 0.4s cubic-bezier(0.16,1,0.3,1); } 
+
+.demo-toggle-btn:hover { color:var(--text); } 
+
+.demo-toggle-btn.active { color:var(--bg); font-weight:500; border-color:transparent; } 
+
+.demo-caption { font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--faint); text-align:center; margin-top:28px; } 
+
+ 
+
+/* BRAND ARCHITECTURE */ 
+
+.arch-stack { display:flex; flex-direction:column; gap:14px; max-width:760px; margin:0 auto; } 
+
+.arch-row { display:grid; grid-template-columns:48px 1fr; gap:22px; align-items:flex-start; background:linear-gradient(180deg, rgba(160,178,210,0.10) 0%, rgba(160,178,210,0.02) 45%, rgba(160,178,210,0) 70%), var(--elev); border:1px solid var(--border); border-radius:20px; padding:26px 28px; box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 40px -16px rgba(0,0,0,0.5); position:relative; } 
+
+.arch-tier { font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--faint); font-weight:500; padding-top:4px; } 
+
+.arch-body h3 { font-family:var(--display); font-size:22px; font-weight:400; letter-spacing:-0.02em; color:var(--text); margin-bottom:6px; } 
+
+.arch-body h3 .tm { font-size:11px; vertical-align:super; color:var(--blue); margin-left:1px; } 
+
+.liv-sup { font-size:0.5em; vertical-align:super; font-weight:500; color:var(--blue); letter-spacing:0; } 
+
+.arch-body .arch-role { font-family:var(--mono); font-size:9px; letter-spacing:0.24em; text-transform:uppercase; color:var(--blue); margin-bottom:10px; } 
+
+.arch-body p { font-size:14px; line-height:1.65; color:var(--dim); } 
+
+.arch-connector { position:absolute; left:24px; bottom:-14px; width:1px; height:14px; background:var(--borderStr); z-index:0; } 
+
+.arch-row:last-child .arch-connector { display:none; } 
+
+@media (max-width:600px){ .arch-row { grid-template-columns:1fr; gap:10px; } .arch-connector { left:50%; } } 
+
+ 
+
+/* BRAND ARCHITECTURE end */ 
+
+ 
+
+.feat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:24px; overflow:hidden; } 
+
+.feat { background:var(--bg); padding:36px 32px; transition:background 0.3s; position:relative; } 
+
+.feat:hover { background:var(--elev); } 
+
+.feat-num { font-family:var(--mono); font-size:10px; letter-spacing:0.24em; color:var(--blue); margin-bottom:18px; } 
+
+.feat h3 { font-family:var(--display); font-size:21px; font-weight:400; letter-spacing:-0.02em; line-height:1.3; color:var(--text); margin-bottom:12px; } 
+
+.feat p { font-size:14px; line-height:1.7; color:var(--dim); } 
+
+.feat-tag { display:inline-block; margin-top:16px; font-family:var(--mono); font-size:8px; letter-spacing:0.2em; padding:4px 10px; border-radius:6px; border:1px solid var(--borderStr); color:var(--faint); text-transform:uppercase; } 
+
+ 
+
+/* PRICING */ 
+
+.price-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; align-items:stretch; } 
+
+.price-card { background:var(--elev); border:1px solid var(--border); border-radius:24px; padding:38px 30px; display:flex; flex-direction:column; position:relative; transition:transform 0.3s,border-color 0.3s; } 
+
+.price-card:hover { transform:translateY(-4px); } 
+
+.price-card.featured { border-color:var(--blue); background:linear-gradient(180deg,rgba(41,121,255,0.08) 0%,var(--elev) 40%); } 
+
+.price-badge { position:absolute; top:-11px; left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:9px; letter-spacing:0.2em; background:var(--blue); color:var(--bg); padding:5px 16px; border-radius:999px; text-transform:uppercase; font-weight:500; white-space:nowrap; } 
+
+.price-tier { font-family:var(--mono); font-size:11px; letter-spacing:0.24em; text-transform:uppercase; color:var(--dim); margin-bottom:16px; } 
+
+.price-amount { font-family:var(--display); font-weight:300; letter-spacing:-0.04em; color:var(--text); line-height:1; margin-bottom:6px; } 
+
+.price-amount .num { font-size:42px; } 
+
+.price-amount .per { font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--faint); } 
+
+.price-desc { font-size:13px; line-height:1.6; color:var(--dim); margin-bottom:28px; padding-bottom:24px; border-bottom:1px solid var(--border); } 
+
+.price-features { list-style:none; display:flex; flex-direction:column; gap:13px; margin-bottom:32px; flex:1; } 
+
+.price-features li { font-size:13.5px; line-height:1.5; color:var(--text); display:flex; gap:11px; align-items:flex-start; } 
+
+.price-features li::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--green); box-shadow:0 0 6px rgba(0,230,118,0.5); margin-top:7px; flex-shrink:0; } 
+
+.price-features li.muted { color:var(--faint); } 
+
+.price-features li.muted::before { background:var(--ghost); box-shadow:none; } 
+
+.price-card .btn { justify-content:center; width:100%; } 
+
+ 
+
+/* FOOTER */ 
+
+footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:72px 40px 36px; } 
+
+.footer-top { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; max-width:1200px; margin:0 auto 56px; } 
+
+.footer-brand-col { padding-right:20px; } 
+
+.footer-logo { font-family:var(--mono); font-size:15px; letter-spacing:0.42em; color:var(--text); margin-bottom:18px; } 
+
+.footer-tagline { font-size:13px; line-height:1.7; color:var(--dim); max-width:260px; margin-bottom:20px; } 
+
+.footer-built { font-family:var(--mono); font-size:9px; letter-spacing:0.18em; color:var(--faint); line-height:1.8; text-transform:uppercase; } 
+
+.footer-col h4 { font-family:var(--mono); font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color:var(--faint); margin-bottom:20px; font-weight:500; } 
+
+.footer-col a { display:block; font-size:14px; color:var(--dim); margin-bottom:14px; transition:color 0.2s; } 
+
+.footer-col a:hover { color:var(--text); } 
+
+.footer-bottom { max-width:1200px; margin:0 auto; padding-top:28px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; } 
+
+.footer-copy { font-family:var(--mono); font-size:9px; letter-spacing:0.18em; color:var(--faint); } 
+
+.footer-legal-row { display:flex; gap:24px; flex-wrap:wrap; } 
+
+.footer-legal-row a { font-family:var(--mono); font-size:9px; letter-spacing:0.18em; color:var(--faint); transition:color 0.2s; } 
+
+.footer-legal-row a:hover { color:var(--dim); } 
+
+ 
+
+/* RESPONSIVE */ 
+
+@media (max-width:900px) { 
+
+  .grid-3,.grid-2,.roadmap { grid-template-columns:1fr; } 
+
+  .feat-grid { grid-template-columns:1fr; } 
+
+  .price-grid { grid-template-columns:1fr; } 
+
+  .cardio-grid { grid-template-columns:1fr; gap:36px; } 
+
+  .score-cards { grid-template-columns:1fr; max-width:280px; } 
+
+  .container,.narrow { padding:0 20px; } 
+
+  #hero { padding:100px 20px 60px; } 
+
+  #nav { padding:16px 20px; } 
+
+  footer { padding:48px 20px 28px; } 
+
+  .footer-top { grid-template-columns:1fr 1fr; gap:32px 20px; } 
+
+  .footer-brand-col { grid-column:1 / -1; padding-right:0; } 
+
+  .footer-bottom { flex-direction:column; align-items:flex-start; } 
+
+  .cta-stats { grid-template-columns:1fr; } 
+
+  .map-row { grid-template-columns:1fr; gap:8px; } 
+
+  .map-score { text-align:left; } 
+
+} 
+
+@media (max-width:600px) { 
+
+  .btn-group { flex-direction:column; align-items:center; } 
+
+  .btn { justify-content:center; width:100%; max-width:320px; } 
+
+  .proof-inner { flex-direction:column; gap:12px; } 
+
+  .proof-sep { display:none; } 
+
+} 
+
+</style> 
+
+</head> 
+
+<body> 
+
+<div class="grain"></div> 
+
+<nav id="nav"> 
+
+  <div class="nav-spacer"></div> 
+
+  <div class="nav-logo">LIV.U<span class="reg">®</span></div> 
+
+  <button class="nav-menu-btn" onclick="openMenu()" aria-label="Open menu"><span></span><span></span><span></span></button> 
+
+</nav> 
+
+ 
+
+<!-- Full-screen overlay menu --> 
+
+<div class="nav-overlay" id="navOverlay"> 
+
+  <div class="nav-overlay-top"> 
+
+    <div class="nav-spacer"></div> 
+
+    <div class="nav-logo">LIV.U<span class="reg">®</span></div> 
+
+    <button class="nav-overlay-close" onclick="closeMenu()" aria-label="Close menu">&times;</button> 
+
+  </div> 
+
+  <div class="nav-overlay-links"> 
+
+    <a href="#stakeholders" onclick="closeMenu()">Platform <span class="arrow">→</span></a> 
+
+    <a href="#architecture" onclick="closeMenu()">The System <span class="arrow">→</span></a> 
+
+    <a href="#demo" onclick="closeMenu()">See It <span class="arrow">→</span></a> 
+
+    <a href="#compare" onclick="closeMenu()">The Difference <span class="arrow">→</span></a> 
+
+    <a href="#stakeholders" onclick="closeMenu()">Who It's For <span class="arrow">→</span></a> 
+
+    <a href="#features" onclick="closeMenu()">Features <span class="arrow">→</span></a> 
+
+    <a href="#how" onclick="closeMenu()">The Science <span class="arrow">→</span></a> 
+
+    <a href="#pricing" onclick="closeMenu()">Pricing <span class="arrow">→</span></a> 
+
+    <a href="#whyus" onclick="closeMenu()">Why Us <span class="arrow">→</span></a> 
+
+    <a href="#nil" onclick="closeMenu()">NIL <span class="arrow">→</span></a> 
+
+  </div> 
+
+  <div class="nav-overlay-cta"> 
+
+    <a href="https://calendly.com/brianlentz1" target="_blank" rel="noopener">BOOK A DEMO</a> 
+
+  </div> 
+
+</div> 
+
+ 
+
+<!-- HERO --> 
+
+<section id="hero"> 
+
+  <!-- Sticky faint LIV.U crest watermark --> 
+
+  <div class="crest-glow" aria-hidden="true"></div> 
+
+  <div class="crest-watermark" aria-hidden="true"> 
+
+    <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg"> 
+
+      <!-- three stars --> 
+
+      <path d="M50 20 l5.9 12 13.2 1.9 -9.5 9.3 2.2 13.1 -11.8-6.2 -11.8 6.2 2.2-13.1 -9.5-9.3 13.2-1.9z" fill="currentColor"/> 
+
+      <path d="M100 8 l7 14.2 15.7 2.3 -11.3 11 2.7 15.6 -14.1-7.4 -14.1 7.4 2.7-15.6 -11.3-11 15.7-2.3z" fill="currentColor"/> 
+
+      <path d="M150 20 l5.9 12 13.2 1.9 -9.5 9.3 2.2 13.1 -11.8-6.2 -11.8 6.2 2.2-13.1 -9.5-9.3 13.2-1.9z" fill="currentColor"/> 
+
+      <!-- shield outline --> 
+
+      <path d="M40 80 L160 80 L160 150 C160 195 130 218 100 232 C70 218 40 195 40 150 Z" stroke="currentColor" stroke-width="4" fill="none"/> 
+
+      <path d="M52 92 L148 92 L148 150 C148 188 122 207 100 219 C78 207 52 188 52 150 Z" stroke="currentColor" stroke-width="2" fill="none"/> 
+
+      <!-- divider line --> 
+
+      <line x1="60" y1="128" x2="140" y2="128" stroke="currentColor" stroke-width="3"/> 
+
+      <!-- vertical stripes --> 
+
+      <rect x="74" y="140" width="9" height="62" fill="currentColor"/> 
+
+      <rect x="95" y="140" width="9" height="68" fill="currentColor"/> 
+
+      <rect x="116" y="140" width="9" height="62" fill="currentColor"/> 
+
+    </svg> 
+
+  </div> 
+
+ 
+
+  <div class="hero-content"> 
+
+    <div class="eyebrow blue fade-up">Cardio-Genomic OS</div> 
+
+    <h1 class="hero-h1 fade-up d1">Cardiovascular and genetic intelligence<br>for <span class="accent">human performance.</span></h1> 
+
+    <p class="hero-sub fade-up d2">A continuous physiologic intelligence platform quantifying cardiovascular response, autonomic regulation, and recovery adaptation to enable individualized performance modeling.</p> 
+
+    <div class="btn-group fade-up d3" style="justify-content:center;"> 
+
+      <a href="https://calendly.com/brianlentz1" target="_blank" rel="noopener" class="btn btn-primary">BOOK A DEMO</a> 
+
+      <a href="#how" class="btn btn-ghost">HOW IT WORKS →</a> 
+
+    </div> 
+
+    <div class="trust-line fade-up d4"> 
+
+      <div class="trust-dot"></div> 
+
+      BUILT FOR ATHLETES, PARENTS, COACHES &amp; ADMINISTRATORS 
+
+    </div> 
+
+  </div> 
+
+ 
+
+  <div class="score-cards fade-up d5"> 
+
+    <div class="score-card"> 
+
+      <div class="score-arc" style="width:72px;height:72px;" data-score="88" data-color="#00E676" data-size="72" data-stroke="2.5"><span class="score-num" style="font-size:26px;"></span></div> 
+
+      <div class="status-label" style="color:#00E676;">RECOVERED</div> 
+
+      <div class="verb" style="color:#00E676;">PUSH</div> 
+
+      <div class="athlete-name">M. PARK · MIDFIELD</div> 
+
+    </div> 
+
+    <div class="score-card"> 
+
+      <div class="score-arc" style="width:72px;height:72px;" data-score="72" data-color="#2979FF" data-size="72" data-stroke="2.5"><span class="score-num" style="font-size:26px;"></span></div> 
+
+      <div class="status-label" style="color:#2979FF;">BALANCED</div> 
+
+      <div class="verb" style="color:#2979FF;">MAINTAIN</div> 
+
+      <div class="athlete-name">A. CHEN · WINGER</div> 
+
+    </div> 
+
+    <div class="score-card"> 
+
+      <div class="score-arc" style="width:72px;height:72px;" data-score="51" data-color="#D500F9" data-size="72" data-stroke="2.5"><span class="score-num" style="font-size:26px;"></span></div> 
+
+      <div class="status-label" style="color:#D500F9;">ADAPT</div> 
+
+      <div class="verb" style="color:#D500F9;">RECOVER</div> 
+
+      <div class="athlete-name">S. REYES · CENTER-BACK</div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- BRAND ARCHITECTURE --> 
+
+<section class="section" id="architecture"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up"> 
+
+      <div class="eyebrow blue">The System</div> 
+
+      <h2>One architecture, four named layers.</h2> 
+
+    </div> 
+
+    <div class="arch-stack"> 
+
+      <div class="arch-row fade-up"> 
+
+        <div class="arch-tier">01</div> 
+
+        <div class="arch-body"> 
+
+          <div class="arch-role">Master Brand</div> 
+
+          <h3>LIV.U<span class="tm">™</span></h3> 
+
+          <p>The platform and the relationship — the cardiovascular and genetic intelligence system an athlete carries with them.</p> 
+
+        </div> 
+
+        <div class="arch-connector"></div> 
+
+      </div> 
+
+      <div class="arch-row fade-up d1"> 
+
+        <div class="arch-tier">02</div> 
+
+        <div class="arch-body"> 
+
+          <div class="arch-role">Athlete System</div> 
+
+          <h3>Bio-adaptive Engine<span class="tm">™</span></h3> 
+
+          <p>The engine that reads each athlete continuously and adapts to their body, their schedule, and their environment — individually and in real time.</p> 
+
+        </div> 
+
+        <div class="arch-connector"></div> 
+
+      </div> 
+
+      <div class="arch-row fade-up d2"> 
+
+        <div class="arch-tier">03</div> 
+
+        <div class="arch-body"> 
+
+          <div class="arch-role">Proprietary Science</div> 
+
+          <h3>Cardiovascular Intelligence Layer<span class="tm">™</span></h3> 
+
+          <p>The science beneath the engine — the cardiovascular and genetic foundation that makes each athlete's signal personal and precise.</p> 
+
+        </div> 
+
+        <div class="arch-connector"></div> 
+
+      </div> 
+
+      <div class="arch-row fade-up d3"> 
+
+        <div class="arch-tier">04</div> 
+
+        <div class="arch-body"> 
+
+          <div class="arch-role">Daily Output</div> 
+
+          <h3>LIV<span class="liv-sup">S</span></h3> 
+
+          <p>The single read an athlete wakes to each morning — a clear, calibrated sense of where their body is, and what today asks of them. Behind that one number, the engine quietly accounts for travel and jet lag, the team's schedule, and the day's weather — adjusting recovery to the demands ahead, not just the data behind.</p> 
+
+        </div> 
+
+        <div class="arch-connector"></div> 
+
+      </div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- INTERACTIVE LIVˢ DEMO --> 
+
+<section class="section" id="demo"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up"> 
+
+      <div class="eyebrow blue">See It</div> 
+
+      <h2>One state. No number to chase.</h2> 
+
+    </div> 
+
+    <div class="demo-wrap fade-up d1"> 
+
+      <div class="demo-orb-wrap"> 
+
+        <div class="demo-halo"></div> 
+
+        <div class="demo-ring"></div> 
+
+        <div class="demo-orb"> 
+
+          <span class="demo-state-word" id="demo-word">Recovered</span> 
+
+        </div> 
+
+      </div> 
+
+      <p class="demo-line" id="demo-line">Ready. Train sharp, not deep.</p> 
+
+      <p class="demo-why" id="demo-why">Deep sleep, steady rhythm. With a match in 2 days, today's strength is worth banking.</p> 
+
+      <div class="demo-toggle-row"> 
+
+        <button class="demo-toggle-btn" id="dt-recovered" onclick="demoState('recovered')">Recovered</button> 
+
+        <button class="demo-toggle-btn" id="dt-balanced" onclick="demoState('balanced')">Balanced</button> 
+
+        <button class="demo-toggle-btn" id="dt-adapt" onclick="demoState('adapt')">Adapt</button> 
+
+      </div> 
+
+      <p class="demo-caption">Tap a state — this is what an athlete sees each morning</p> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- SILENT INTELLIGENCE --> 
+
+<section class="section" id="silent"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up"> 
+
+      <div class="eyebrow blue">Silent Intelligence</div> 
+
+      <h2>Three signals in. One calm answer out.</h2> 
+
+    </div> 
+
+    <div class="si-flow fade-up d1"> 
+
+      <div class="si-inputs"> 
+
+        <div class="si-input"> 
+
+          <div class="si-k">Body</div> 
+
+          <div class="si-v">Cardiovascular response</div> 
+
+          <div class="si-d">Sleep, heart rhythm, recovery — read continuously.</div> 
+
+        </div> 
+
+        <div class="si-input"> 
+
+          <div class="si-k">Schedule</div> 
+
+          <div class="si-v">Travel &amp; team calendar</div> 
+
+          <div class="si-d">Practices, games, lifts, jet lag — read as demand ahead.</div> 
+
+        </div> 
+
+        <div class="si-input"> 
+
+          <div class="si-k">Weather</div> 
+
+          <div class="si-v">Heat, humidity, cold</div> 
+
+          <div class="si-d">Environmental load on the body — and on the day's venue.</div> 
+
+        </div> 
+
+      </div> 
+
+      <div class="si-arrow">→</div> 
+
+      <div class="si-output"> 
+
+        <div class="si-ok">LIV<span class="liv-sup">S</span></div> 
+
+        <div class="si-ov">One state.<br>One reason.</div> 
+
+        <div class="si-od">The athlete never sees a calendar or a forecast. The engine reads it all silently — and speaks once, clearly.</div> 
+
+      </div> 
+
+    </div> 
+
+    <p class="si-note">No dashboards. No inputs to log. The intelligence stays out of the way.</p> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- HEAD-TO-HEAD COMPARISON --> 
+
+<section class="section" id="compare"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up"> 
+
+      <div class="eyebrow blue">Same Day, Two Systems</div> 
+
+      <h2>What the difference looks like.</h2> 
+
+    </div> 
+
+    <div class="cmp-scenario fade-up d1"> 
+
+      <div class="cmp-sc-label">The Scenario</div> 
+
+      <p>Two athletes on the same soccer team. The squad flies across three time zones, then plays a match the next afternoon in 96°F heat and high humidity.</p> 
+
+    </div> 
+
+    <div class="cmp-grid fade-up d2"> 
+
+      <div class="cmp-col win"> 
+
+        <div class="cmp-athlete">Athlete 1 · With LIV.U</div> 
+
+        <div class="cmp-name">Livy</div> 
+
+        <div class="cmp-row"> 
+
+          <div class="cmp-k">What the system knew</div> 
+
+          <div class="cmp-v">Her cardiovascular baseline and genetic profile, the three-time-zone travel, the match timing, and the heat in the forecast — all read silently, in advance.</div> 
+
+        </div> 
+
+        <div class="cmp-row"> 
+
+          <div class="cmp-k">What she saw that morning</div> 
+
+          <div class="cmp-v">"Body clock still catching up from travel. Heat will add real cardiovascular load today — hydrate early, shorten your warm-up, and ease into the first twenty minutes."</div> 
+
+        </div> 
+
+        <div class="cmp-row"> 
+
+          <div class="cmp-k">Why it was personal</div> 
+
+          <div class="cmp-v">Her genetic profile flags a slower heat-adaptation response, so the guidance leaned harder on hydration and pacing than it would for a teammate.</div> 
+
+        </div> 
+
+        <div class="cmp-row"> 
+
+          <div class="cmp-k">The result</div> 
+
+          <div class="cmp-v">She arrived adapted, paced the opening, and still had something left when the match was decided late.</div> 
+
+        </div> 
+
+      </div> 
+
+      <div class="cmp-col flat"> 
+
+        <div class="cmp-athlete">Athlete 2 · With a basic tracker</div> 
+
+        <div class="cmp-name">Patricia</div> 
+
+        <div class="cmp-row"> 
+
+          <div class="cmp-k">What the system knew</div> 
+
+          <div class="cmp-v">Heart rate and step count. Nothing about the travel, the match, or the heat.</div> 
+
+        </div> 
+
+        <div class="cmp-row"> 
+
+          <div class="cmp-k">What she saw that morning</div> 
+
+          <div class="cmp-v muted">"78 bpm · 2,400 steps." A number, with no context and no guidance.</div> 
+
+        </div> 
+
+        <div class="cmp-row"> 
+
+          <div class="cmp-k">Why it wasn't personal</div> 
+
+          <div class="cmp-v">The same readout every athlete gets, on every day, in every climate — blind to who she is and what she's about to face.</div> 
+
+        </div> 
+
+        <div class="cmp-row"> 
+
+          <div class="cmp-k">The result</div> 
+
+          <div class="cmp-v">She trained as if it were a normal day at home, pushed too hard early in the heat, and faded before the match was decided.</div> 
+
+        </div> 
+
+      </div> 
+
+    </div> 
+
+    <p class="cmp-takeaway fade-up">Same flight. Same heat. Same match.<br>One system understood all three — <strong>the other counted steps.</strong></p> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- STAKEHOLDERS --> 
+
+<section class="section" id="stakeholders"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up"> 
+
+      <div class="eyebrow blue">One Engine · Three Views</div> 
+
+      <h2>One intelligence engine. Three people who act on it.</h2> 
+
+    </div> 
+
+    <div class="grid-3"> 
+
+      <div class="card fade-up"> 
+
+        <div class="role-tag" style="color:var(--green);">ATHLETE</div> 
+
+        <h3>One number. One word. Every morning.</h3> 
+
+        <p>A single LIV<span class="liv-sup">S</span> grounded in cardiovascular recovery — calm by default, depth on request. The record is theirs, and it travels with them.</p> 
+
+        <div class="stat-block"> 
+
+          <div class="stat-row"><span class="stat-k">Resting HR</span><span class="stat-v" style="color:var(--green);">52 BPM</span></div> 
+
+          <div class="stat-row"><span class="stat-k">HRV</span><span class="stat-v" style="color:var(--green);">74 MS</span></div> 
+
+          <div class="stat-row"><span class="stat-k">Sleep</span><span class="stat-v" style="color:var(--green);">8.2 HR</span></div> 
+
+          <div class="stat-row"><span class="stat-k">LIV<span class="liv-sup">S</span></span><span class="stat-v">88/100</span></div> 
+
+        </div> 
+
+      </div> 
+
+      <div class="card fade-up d1"> 
+
+        <div class="role-tag" style="color:var(--blue);">COACH</div> 
+
+        <h3>Roster intelligence. Position-aware load.</h3> 
+
+        <p>Every athlete's cardiovascular trend translated into load guidance. A rising resting HR across the squad is fatigue you can feel — now you can see it.</p> 
+
+        <div class="stat-block"> 
+
+          <div class="stat-row"><span class="stat-k">Squad trend</span><span class="stat-v" style="color:var(--green);">Stable</span></div> 
+
+          <div class="stat-row"><span class="stat-k">Flagged</span><span class="stat-v" style="color:var(--pink);">3 athletes</span></div> 
+
+          <div class="stat-row"><span class="stat-k">Cleared</span><span class="stat-v" style="color:var(--green);">21</span></div> 
+
+          <div class="stat-row"><span class="stat-k">Load risk</span><span class="stat-v">Low</span></div> 
+
+        </div> 
+
+      </div> 
+
+      <div class="card fade-up d2"> 
+
+        <div class="role-tag" style="color:var(--pink);">ADMINISTRATION</div> 
+
+        <h3>Institutional safety. Recruiting edge.</h3> 
+
+        <p>Athlete-owned cardiovascular records across every team. FERPA-aware, consent-driven, audit-ready — a defensible answer to every athlete-welfare question.</p> 
+
+        <div class="stat-block"> 
+
+          <div class="stat-row"><span class="stat-k">Teams</span><span class="stat-v">5 active</span></div> 
+
+          <div class="stat-row"><span class="stat-k">Consent</span><span class="stat-v" style="color:var(--green);">100%</span></div> 
+
+          <div class="stat-row"><span class="stat-k">Audit log</span><span class="stat-v" style="color:var(--green);">Complete</span></div> 
+
+          <div class="stat-row"><span class="stat-k">Compliance</span><span class="stat-v" style="color:var(--green);">FERPA</span></div> 
+
+        </div> 
+
+      </div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- HOW IT WORKS --> 
+
+<section class="section" id="how"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up"> 
+
+      <div class="eyebrow">How The Intelligence Works</div> 
+
+      <h2>The heart leads. Genetics tunes the baseline. Continuous data tells the story.</h2> 
+
+    </div> 
+
+    <div class="grid-2"> 
+
+      <div class="card fade-up"> 
+
+        <div class="how-head"><span class="how-n">01</span><span class="how-label" style="color:var(--blue);">CARDIOVASCULAR SIGNAL</span></div> 
+
+        <h3>Your heart is the truest read on recovery.</h3> 
+
+        <p>Resting heart rate, heart rate variability, and recovery dynamics — captured continuously — are the clearest signal of whether the body has absorbed its training. This is the lead input, not an afterthought.</p> 
+
+        <div class="chips"><span class="chip">RESTING HR</span><span class="chip">HRV</span><span class="chip">RECOVERY DYNAMICS</span></div> 
+
+      </div> 
+
+      <div class="card fade-up d1"> 
+
+        <div class="how-head"><span class="how-n">02</span><span class="how-label" style="color:var(--pink);">GENETIC BASELINE</span></div> 
+
+        <h3>Genetics personalizes what "normal" means.</h3> 
+
+        <p>From an athlete's existing OTC genetic file, a handful of well-studied markers tune their personal baseline — recovery and adaptation tendencies. Context, not prophecy. It explains why two athletes respond differently to identical training.</p> 
+
+        <div class="chips"><span class="chip">ACTN3</span><span class="chip">ACE</span><span class="chip">PPARGC1A</span><span class="chip">BASELINE TUNING</span></div> 
+
+      </div> 
+
+      <div class="card fade-up d2"> 
+
+        <div class="how-head"><span class="how-n">03</span><span class="how-label" style="color:var(--green);">SPORT & POSITION</span></div> 
+
+        <h3>The role shapes the recommendation.</h3> 
+
+        <p>A center-back, a point guard, a pitcher, a lineman, and a midfielder are not the same athlete. The engine knows the sport, the position, and the demands — and benchmarks each accordingly.</p> 
+
+        <div class="chips"><span class="chip">SOCCER</span><span class="chip">BASKETBALL</span><span class="chip">BASEBALL</span><span class="chip">FOOTBALL</span><span class="chip">LACROSSE</span></div> 
+
+      </div> 
+
+      <div class="card fade-up d3"> 
+
+        <div class="how-head"><span class="how-n">04</span><span class="how-label" style="color:var(--faint);">EXPLAINED OUTPUT</span></div> 
+
+        <h3>Every signal shows its work.</h3> 
+
+        <p>One LIV<span class="liv-sup">S</span>, a plain-English reason, and the inputs that drove it. When the engine and the athletic trainer disagree, that surfaces — and the human always has the final call.</p> 
+
+        <div class="chips"><span class="chip">WHY TEXT</span><span class="chip">CONFIDENCE</span><span class="chip">HUMAN-IN-THE-LOOP</span></div> 
+
+      </div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- READINESS MAP --> 
+
+<section class="section"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up"> 
+
+      <div class="eyebrow green">Team Intelligence</div> 
+
+      <h2>One screen for every team.</h2> 
+
+    </div> 
+
+    <div class="map-card fade-up d1"> 
+
+      <div class="map-row"><span class="map-label">Soccer</span><div class="bar"><div class="fill g" data-w="88"></div></div><span class="map-score" style="color:var(--green);">88</span></div> 
+
+      <div class="map-row"><span class="map-label">Basketball</span><div class="bar"><div class="fill b" data-w="72"></div></div><span class="map-score" style="color:var(--blue);">72</span></div> 
+
+      <div class="map-row"><span class="map-label">Baseball</span><div class="bar"><div class="fill g" data-w="83"></div></div><span class="map-score" style="color:var(--green);">83</span></div> 
+
+      <div class="map-row"><span class="map-label">Football</span><div class="bar"><div class="fill p" data-w="51"></div></div><span class="map-score" style="color:var(--pink);">51</span></div> 
+
+      <div class="map-row"><span class="map-label">Lacrosse</span><div class="bar"><div class="fill g" data-w="79"></div></div><span class="map-score" style="color:var(--green);">79</span></div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- WHY US --> 
+
+<!-- PREMIUM FEATURES --> 
+
+<section class="section" id="features"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up"> 
+
+      <div class="eyebrow blue">The Platform</div> 
+
+      <h2>Built deep, where it counts.</h2> 
+
+    </div> 
+
+    <div class="feat-grid fade-up d1"> 
+
+      <div class="feat"> 
+
+        <div class="feat-num">01</div> 
+
+        <h3>The athlete-owned cardiovascular record</h3> 
+
+        <p>A continuous, portable record of each athlete's cardiovascular response — built to last a career, not a season. It travels with the athlete across teams, levels, and years. The athlete owns it; the institution accesses it by consent.</p> 
+
+        <span class="feat-tag">Lifelong · Portable</span> 
+
+      </div> 
+
+      <div class="feat"> 
+
+        <div class="feat-num">02</div> 
+
+        <h3>Personal-baseline intelligence</h3> 
+
+        <p>The engine learns each athlete's own normal, then surfaces deviation from it — not a generic population threshold. Genetics tunes the starting point; continuous data refines it daily. This is what makes the same number mean different things for different athletes.</p> 
+
+        <span class="feat-tag">Per-Athlete Baseline</span> 
+
+      </div> 
+
+      <div class="feat"> 
+
+        <div class="feat-num">03</div> 
+
+        <h3>Position-aware load guidance</h3> 
+
+        <p>A center-back and a box-to-box midfielder absorb load differently. The engine knows the position, the match calendar, and the demands — and frames the LIV<span class="liv-sup">S</span> accordingly. Soccer-first, with the same model extending to four more sports.</p> 
+
+        <span class="feat-tag">Soccer-Tuned</span> 
+
+      </div> 
+
+      <div class="feat"> 
+
+        <div class="feat-num">04</div> 
+
+        <h3>Cross-institution benchmarking</h3> 
+
+        <p>Anonymized, aggregated comparison no single program can build alone — how your squad's LIV<span class="liv-sup">S</span> and load compare across the network. A data advantage that compounds with every team that joins.</p> 
+
+        <span class="feat-tag">Premium · Network</span> 
+
+      </div> 
+
+      <div class="feat"> 
+
+        <div class="feat-num">05</div> 
+
+        <h3>Wearable-agnostic ingestion</h3> 
+
+        <p>No hardware to buy, no lock-in. The platform reads from the devices your athletes already wear and the genetic files they already have. One engine, many inputs.</p> 
+
+        <span class="feat-tag">No Lock-In</span> 
+
+      </div> 
+
+      <div class="feat"> 
+
+        <div class="feat-num">06</div> 
+
+        <h3>Institutional governance</h3> 
+
+        <p>FERPA-aware records, multi-tenant isolation, granular athlete consent, and a complete audit log on every decision. The compliance posture an administrator can defend to a president, a parent, or counsel.</p> 
+
+        <span class="feat-tag">Premium · Compliance</span> 
+
+      </div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- WHY US --> 
+
+<section id="whyus"> 
+
+  <div class="container"> 
+
+    <div class="cardio-grid"> 
+
+      <div class="cardio-left fade-up"> 
+
+        <div class="eyebrow blue">Why Us</div> 
+
+        <h2>Most wearables track what your body did.<br>We measure how your body adapts.</h2> 
+
+        <p>CardioGen Intelligence OS is a continuous cardiovascular and genetic intelligence system that maps how each athlete responds to training, stress, and recovery in real time — individually, precisely, and biologically.</p> 
+
+        <p>While legacy wearables summarize sleep and recovery into simplified scores, we model the underlying physiologic engine driving performance: cardiovascular response, autonomic stress load, and adaptive capacity.</p> 
+
+        <p class="cardio-emphasis">This is not wellness tracking. This is performance intelligence.</p> 
+
+      </div> 
+
+      <div class="cardio-card fade-up d1"> 
+
+        <div class="founder-eyebrow">From the Founder</div> 
+
+        <p class="cardio-quote">"For decades, athlete monitoring has focused on output — speed, workload, sleep, recovery. We believe the next frontier is understanding the biology underneath it.</p> 
+
+        <p class="cardio-quote">Emerging research in epigenetics and elite sport is beginning to show that genetics and biologic response patterns may help explain why some athletes recover differently, adapt differently, and carry different injury risk profiles under the same physical load. LIV.U was built around that future: combining cardiovascular intelligence, physiologic monitoring, and human performance data to help athletes better understand how their bodies respond to stress, training, and recovery."</p> 
+
+        <div class="cardio-attr">— BRIAN LENTZ, MPAS, PA-C · UNIVERSITY OF PENNSYLVANIA CARDIOLOGY</div> 
+
+      </div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- ROADMAP --> 
+
+<section class="section"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up"> 
+
+      <div class="eyebrow">Where This Is Going</div> 
+
+      <h2>Performance today. The cardiovascular record for life.</h2> 
+
+    </div> 
+
+    <div class="roadmap"> 
+
+      <div class="road-card fade-up"> 
+
+        <div class="road-phase">PHASE 01 · TODAY</div> 
+
+        <h3>Cardiovascular intelligence</h3> 
+
+        <p>Daily LIV<span class="liv-sup">S</span> and load intelligence across five sports. Athlete-owned records, coach insight, institutional compliance.</p> 
+
+        <span class="road-tag">LIVE</span> 
+
+      </div> 
+
+      <div class="road-card fade-up d1"> 
+
+        <div class="road-phase">PHASE 02 · NEXT</div> 
+
+        <h3>Scale &amp; validation</h3> 
+
+        <p>Cross-institution benchmarking as a network effect. Peer-reviewed validation study with an academic partner builds the evidence base.</p> 
+
+        <span class="road-tag">IN PROGRESS</span> 
+
+      </div> 
+
+      <div class="road-card fade-up d2"> 
+
+        <div class="road-phase">PHASE 03 · EVENTUAL</div> 
+
+        <h3>Clinical &amp; medical genetics</h3> 
+
+        <p>The cardiovascular and genetic record built during the performance phase becomes the foundation for clinical genetics — reached deliberately, with validation and the right partners.</p> 
+
+        <span class="road-tag">VISION</span> 
+
+      </div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- NIL --> 
+
+<section class="section" id="nil"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up" style="text-align:center;max-width:680px;margin-left:auto;margin-right:auto;"> 
+
+      <div class="eyebrow blue">The NIL Era · Built In</div> 
+
+      <h2 style="margin:0 auto;">Verified performance, owned by the athlete.</h2> 
+
+    </div> 
+
+    <div class="grid-3"> 
+
+      <div class="card fade-up"> 
+
+        <div class="role-tag" style="color:var(--blue);">01 · VERIFIED IDENTITY</div> 
+
+        <h3>The record brands trust.</h3> 
+
+        <p>Training consistency and cardiovascular discipline, captured continuously and signed. When a brand evaluates a deal, the athlete has receipts.</p> 
+
+      </div> 
+
+      <div class="card fade-up d1"> 
+
+        <div class="role-tag" style="color:var(--blue);">02 · ATHLETE CONSENT</div> 
+
+        <h3>Their data. Their permission.</h3> 
+
+        <p>No deal happens without explicit athlete consent. Granular controls, full audit log, revocable at any time.</p> 
+
+      </div> 
+
+      <div class="card fade-up d2"> 
+
+        <div class="role-tag" style="color:var(--blue);">03 · INSTITUTIONAL FIT</div> 
+
+        <h3>Aligned with your collective.</h3> 
+
+        <p>The data layer underneath any NIL relationship — collective, agency, or direct. Compliance officers get audit trails; the athlete keeps control.</p> 
+
+      </div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- PRICING --> 
+
+<section class="section" id="pricing"> 
+
+  <div class="container"> 
+
+    <div class="section-header fade-up"> 
+
+      <div class="eyebrow blue">Programs &amp; Pricing</div> 
+
+      <h2>Built for institutions. Priced for programs.</h2> 
+
+    </div> 
+
+    <div class="price-grid"> 
+
+      <div class="price-card fade-up"> 
+
+        <div class="price-tier">Pilot</div> 
+
+        <div class="price-amount"><span class="num">$0</span></div> 
+
+        <div class="price-desc">For design-partner programs in the Fall 2026 cohort. A full 12-week deployment on one team.</div> 
+
+        <ul class="price-features"> 
+
+          <li>One team, full season pilot</li> 
+
+          <li>Athlete, coach &amp; admin views</li> 
+
+          <li>Bio-adaptive Engine</li> 
+
+          <li>Wearable-agnostic ingestion</li> 
+
+          <li>Direct line to the founder</li> 
+
+          <li class="muted">Cross-institution benchmarking</li> 
+
+          <li class="muted">Multi-team governance</li> 
+
+        </ul> 
+
+        <a href="mailto:Brianlentz1@gmail.com?subject=LIV.U%20Pilot%20Waitlist" class="btn btn-ghost">WAITLIST PILOT</a> 
+
+      </div> 
+
+      <div class="price-card featured fade-up d1"> 
+
+        <div class="price-badge">Most Programs</div> 
+
+        <div class="price-tier">Program</div> 
+
+        <div class="price-amount"><span class="num">Custom</span></div> 
+
+        <div class="price-desc">For a single program running one or more teams in production, season over season.</div> 
+
+        <ul class="price-features"> 
+
+          <li>Unlimited athletes on your teams</li> 
+
+          <li>Full athlete / coach / admin platform</li> 
+
+          <li>Personal-baseline intelligence</li> 
+
+          <li>Position-aware load guidance</li> 
+
+          <li>Athlete-owned portable records</li> 
+
+          <li>FERPA-aware governance &amp; audit log</li> 
+
+          <li>Priority support</li> 
+
+        </ul> 
+
+        <a href="mailto:Brianlentz1@gmail.com?subject=LIV.U%20Program%20Inquiry" class="btn btn-primary">TALK TO US</a> 
+
+      </div> 
+
+      <div class="price-card fade-up d2"> 
+
+        <div class="price-tier">Enterprise</div> 
+
+        <div class="price-amount"><span class="num">Custom</span></div> 
+
+        <div class="price-desc">For full athletic departments and multi-program institutions that need the network advantage.</div> 
+
+        <ul class="price-features"> 
+
+          <li>Everything in Program</li> 
+
+          <li>All teams, department-wide</li> 
+
+          <li>Cross-institution benchmarking</li> 
+
+          <li>Multi-tenant data isolation</li> 
+
+          <li>Custom compliance &amp; data governance</li> 
+
+          <li>Dedicated onboarding</li> 
+
+          <li>Roadmap input &amp; early access</li> 
+
+        </ul> 
+
+        <a href="mailto:Brianlentz1@gmail.com?subject=LIV.U%20Enterprise%20Inquiry" class="btn btn-ghost">CONTACT SALES</a> 
+
+      </div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<!-- CTA --> 
+
+<section id="cta"> 
+
+  <div class="narrow"> 
+
+    <div class="eyebrow blue fade-up" style="text-align:center;">Design Partner Program</div> 
+
+    <h2 class="fade-up d1">Bring cardiovascular intelligence<br>to your program.</h2> 
+
+    <p class="fade-up d2">We're accepting a small number of design partners for the Fall 2026 cohort. Pilots run 12 weeks across one or more of your teams. You provide the feedback that shapes the platform.</p> 
+
+    <div class="btn-group fade-up d3" style="justify-content:center;"> 
+
+      <a href="mailto:Brianlentz1@gmail.com?subject=LIV.U%20Pilot%20Waitlist" class="btn btn-primary">WAITLIST PILOT</a> 
+
+      <a href="#how" class="btn btn-ghost">HOW IT WORKS →</a> 
+
+    </div> 
+
+    <div class="cta-stats fade-up d4"> 
+
+      <div class="cta-stat"><div class="big-num">12</div><div class="unit">WEEKS</div><div class="desc">Pilot duration</div></div> 
+
+      <div class="cta-stat"><div class="big-num">5</div><div class="unit">SPORTS</div><div class="desc">Soccer, basketball, baseball, football, lacrosse</div></div> 
+
+      <div class="cta-stat"><div class="big-num">$0</div><div class="unit">PILOT COST</div><div class="desc">For design partners</div></div> 
+
+    </div> 
+
+  </div> 
+
+</section> 
+
+ 
+
+<footer> 
+
+  <div class="footer-top"> 
+
+    <div class="footer-brand-col"> 
+
+      <div class="footer-logo">LIV.U</div> 
+
+      <p class="footer-tagline">The cardiovascular intelligence platform for athletes. Tuned by genetics, driven by continuous data, owned by the athlete.</p> 
+
+      <div class="footer-built">Built in cardiology<br>Advanced heart failure</div> 
+
+    </div> 
+
+    <div class="footer-col"> 
+
+      <h4>Platform</h4> 
+
+      <a href="#architecture">The System</a> 
+
+      <a href="#stakeholders">Who It's For</a> 
+
+      <a href="#how">The Science</a> 
+
+      <a href="#nil">NIL</a> 
+
+      <a href="#whyus">Why Us</a> 
+
+    </div> 
+
+    <div class="footer-col"> 
+
+      <h4>Company</h4> 
+
+      <a href="#whyus">Our Approach</a> 
+
+      <a href="#cta">Design Partners</a> 
+
+      <a href="mailto:Brianlentz1@gmail.com?subject=LIV.U%20Demo%20Request">Book a Demo</a> 
+
+      <a href="mailto:Brianlentz1@gmail.com?subject=LIV.U%20Pilot%20Waitlist">Waitlist Pilot</a> 
+
+      <a href="mailto:Brianlentz1@gmail.com">Contact</a> 
+
+    </div> 
+
+    <div class="footer-col"> 
+
+      <h4>Trust</h4> 
+
+      <a href="#">Privacy</a> 
+
+      <a href="#">Terms of Use</a> 
+
+      <a href="#">FERPA Notice</a> 
+
+      <a href="#">Data Security</a> 
+
+      <a href="#">Athlete Consent</a> 
+
+    </div> 
+
+  </div> 
+
+  <div class="footer-bottom"> 
+
+    <div class="footer-copy">© 2026 LIV.U · ALL RIGHTS RESERVED</div> 
+
+    <div class="footer-legal-row"> 
+
+      <a href="#">Privacy</a> 
+
+      <a href="#">Terms</a> 
+
+      <a href="mailto:Brianlentz1@gmail.com">Contact</a> 
+
+    </div> 
+
+  </div> 
+
+</footer> 
+
+ 
+
+<script> 
+
+// Interactive LIVˢ demo — color + state, no number to chase 
+
+var DEMO = { 
+
+  recovered: { color:'#00E676', glow:'rgba(0,230,118,0.30)', 
+
+    orb:'radial-gradient(circle at 50% 40%, rgba(0,230,118,0.28) 0%, rgba(0,230,118,0.09) 38%, rgba(10,15,31,0) 72%)', 
+
+    word:'Recovered', line:'Ready. Train sharp, not deep.', 
+
+    why:"Deep sleep, steady rhythm. With a match in 2 days, today's strength is worth banking." }, 
+
+  balanced: { color:'#2979FF', glow:'rgba(41,121,255,0.30)', 
+
+    orb:'radial-gradient(circle at 50% 40%, rgba(41,121,255,0.26) 0%, rgba(41,121,255,0.09) 38%, rgba(10,15,31,0) 72%)', 
+
+    word:'Balanced', line:'Steady. Hold the line.', 
+
+    why:'Not peaked, not depleted. Consistency today is exactly how you arrive ready.' }, 
+
+  adapt: { color:'#D500F9', glow:'rgba(213,0,249,0.26)', 
+
+    orb:'radial-gradient(circle at 50% 40%, rgba(213,0,249,0.24) 0%, rgba(213,0,249,0.08) 38%, rgba(10,15,31,0) 72%)', 
+
+    word:'Adapt', line:"Ease off today. You're protecting Saturday.", 
+
+    why:'Recovery markers are low. With heat and a match ahead, backing off now is what keeps you available then.' } 
+
+}; 
+
+function demoState(key){ 
+
+  var s = DEMO[key]; if(!s) return; 
+
+  var r = document.documentElement; 
+
+  r.style.setProperty('--demo-color', s.color); 
+
+  r.style.setProperty('--demo-glow', s.glow); 
+
+  r.style.setProperty('--demo-orb', s.orb); 
+
+  var set=function(id,t){var el=document.getElementById(id); if(el) el.textContent=t;}; 
+
+  set('demo-word', s.word); set('demo-line', s.line); set('demo-why', s.why); 
+
+  ['recovered','balanced','adapt'].forEach(function(k){ 
+
+    var b=document.getElementById('dt-'+k); if(!b) return; 
+
+    if(k===key){ b.classList.add('active'); b.style.background=DEMO[k].color; } 
+
+    else { b.classList.remove('active'); b.style.background='var(--elev)'; } 
+
+  }); 
+
+} 
+
+demoState('recovered'); 
+
+ 
+
+function openMenu(){ document.getElementById('navOverlay').classList.add('open'); document.body.classList.add('menu-open'); } 
+
+function closeMenu(){ document.getElementById('navOverlay').classList.remove('open'); document.body.classList.remove('menu-open'); } 
+
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); }); 
+
+ 
+
+(function(){ 
+
+  var io = new IntersectionObserver(function(es){ 
+
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } }); 
+
+  },{ threshold:0.08, rootMargin:'0px 0px -50px 0px' }); 
+
+  document.querySelectorAll('.fade-up').forEach(function(el){ io.observe(el); }); 
+
+ 
+
+  var nav = document.getElementById('nav'); 
+
+  window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY>30); }, {passive:true}); 
+
+ 
+
+  function buildArc(c){ 
+
+    var s=+c.dataset.score, col=c.dataset.color, sz=+c.dataset.size, st=+c.dataset.stroke; 
+
+    var r=(sz-st)/2, ci=2*Math.PI*r, off=ci-(s/100)*ci; 
+
+    var num=c.querySelector('.score-num'); if(num) num.textContent=s; 
+
+    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg'); 
+
+    svg.setAttribute('width',sz); svg.setAttribute('height',sz); 
+
+    svg.style.cssText='position:absolute;inset:0;transform:rotate(-90deg);'; 
+
+    var tr=document.createElementNS('http://www.w3.org/2000/svg','circle'); 
+
+    tr.setAttribute('cx',sz/2); tr.setAttribute('cy',sz/2); tr.setAttribute('r',r); 
+
+    tr.setAttribute('fill','none'); tr.setAttribute('stroke','rgba(227,233,243,0.07)'); tr.setAttribute('stroke-width',st); 
+
+    var fl=document.createElementNS('http://www.w3.org/2000/svg','circle'); 
+
+    fl.setAttribute('cx',sz/2); fl.setAttribute('cy',sz/2); fl.setAttribute('r',r); 
+
+    fl.setAttribute('fill','none'); fl.setAttribute('stroke',col); fl.setAttribute('stroke-width',st); 
+
+    fl.setAttribute('stroke-linecap','round'); fl.setAttribute('stroke-dasharray',ci); fl.setAttribute('stroke-dashoffset',ci); 
+
+    fl.style.cssText='transition:stroke-dashoffset 1.6s cubic-bezier(0.16,1,0.3,1) 0.4s;filter:drop-shadow(0 0 6px '+col+'66);'; 
+
+    svg.appendChild(tr); svg.appendChild(fl); c.insertBefore(svg,c.firstChild); 
+
+    var ao=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ requestAnimationFrame(function(){ fl.setAttribute('stroke-dashoffset',off); }); ao.unobserve(e.target); } }); },{threshold:0.3}); 
+
+    ao.observe(c); 
+
+  } 
+
+  document.querySelectorAll('.score-arc[data-score]').forEach(buildArc); 
+
+ 
+
+  var bo=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.querySelectorAll('.fill[data-w]').forEach(function(b){ b.style.width=b.dataset.w+'%'; }); bo.unobserve(e.target); } }); },{threshold:0.3}); 
+
+  var mc=document.querySelector('.map-card'); if(mc) bo.observe(mc); 
+
+})(); 
+
+</script> 
+
+</body> 
+
+</html> 
